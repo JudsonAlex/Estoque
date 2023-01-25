@@ -1,0 +1,28 @@
+
+thead{
+    
+    background-color: #211523;
+    color: #eff3ec;
+}
+table{
+    
+    border-collapse: collapse;
+}
+
+.prod:nth-child(even){
+    background-color: #eff3ec;
+
+}
+
+.prod:nth-child(odd){
+    background-color: #5772b0;
+    color: #eff3ec;
+}
+
+td, th {
+    padding: 5px;
+}
+
+tr > td:last-child{
+    padding: 0 20px;
+}

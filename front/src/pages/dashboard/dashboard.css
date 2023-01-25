@@ -1,0 +1,23 @@
+
+.statistcs{
+    display: flex;
+}
+
+#cadastrados{
+    background-color: #377CE4;
+}
+
+#alerta{
+    background-color: #C6CA10;
+}
+#zero{
+    background-color: #D43232;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #262c4d;
+}
