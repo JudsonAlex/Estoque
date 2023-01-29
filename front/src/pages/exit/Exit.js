@@ -22,9 +22,9 @@ export function Exit() {
         })
         console.log(dados)
         axios.put("http://localhost:3333/saida", dados).then(
-            e =>console.log('adiciionado com sucesso', e.data)
+            e =>console.log('Registrado com sucesso', e.data)
         ).catch(
-            e => console.log('Erro ao adicionar', e)
+            e => console.log('Erro ao Registrar', e)
         )
     }
 
