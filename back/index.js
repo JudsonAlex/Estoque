@@ -13,30 +13,36 @@ app.get('/', function(req, res){
     const result = criarDB()
     result.then((dado)=>{
         //console.log(dado.options)
-        res.send(dado.options)
+        res.send(dado.status)
     }).catch(err => {
         return {err}
     })
 })
 
 app.post('/cadastrar',async (req, res)=>{
-    const {cod, desc, local, fab, qnt} = req.body
-    await Produto.create({
-        cod,
-        desc,
-        local,
-        fab,
-        qnt
-    
-    }).then(e => {
-        res.send(e)
-   
-    }).catch(err => res.send(err))
+    // const {cod, desc, local, fab, qnt} = req.body
+    const lista = req.body
+    try{
+        for (var item of lista){
+            await Produto.create({
+                cod: item.cod,
+                desc: item.desc,
+                local: item.local,
+                fab: item.fab,
+                qnt: item.qnt
+            
+            })
+        }
+
+        res.send("sucesso")
+    } catch(error){
+        res.send(error)
+    }
 })
 
 app.post('/listar', async (req, res)=>{
     const {cod, desc} = req.body
-    console.log(req.body)
+    //console.log(req.body)
     if(!cod && !desc){
         const listaProdutos = await Produto.findAll()
         res.send(listaProdutos)
@@ -47,6 +53,7 @@ app.post('/listar', async (req, res)=>{
                 cod: cod
             }
         })
+        // console.log("esse é o resuult", listaProdutos)
         res.send(listaProdutos)
     } else{
         const listaProdutos = await Produto.findAll({
@@ -61,11 +68,15 @@ app.post('/listar', async (req, res)=>{
 })
 
 app.put('/entrada',async (req, res) => {
-    const {cod, qnt} = req.body
-    const produto = await Produto.findByPk(cod)
-    produto.qnt += parseInt(qnt)
-    produto.save()
-    res.send(produto)
+    var mudancas = []
+    for(var i in req.body){
+        const {cod, qnt} = req.body[i]
+        const produto = await Produto.findByPk(cod)
+        produto.qnt += parseInt(qnt)
+        await produto.save()
+        mudancas.push(produto)
+    }
+    res.send(mudancas)
 })
 
 app.put('/saida',async (req, res) => {

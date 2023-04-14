@@ -5,7 +5,9 @@ import './dashboard.css'
 
  export function Dashboard(){
      useEffect(() =>{
-        axios.get("http://localhost:3333").then(console.log("ok")).catch(console.log("opps!!"))
+        axios.get("http://localhost:3333").then(
+            e => console.log("Conectado ao banco!!", e.data)
+        ).catch(error => console.log(error))
      },[])
 
     return(

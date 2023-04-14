@@ -1,0 +1,54 @@
+#move{
+    width: 100%;
+    height: 100%;
+    margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#inputs{
+    width: 100%;
+    height: 8%;
+}
+
+#info{
+    display: flex;
+    background-color: aqua;
+    justify-content: space-between;
+    height: 25%;
+    width: 100%;
+}
+#image{
+    height: 25%;
+}
+img{
+    height: 100%;
+}
+#detalhes{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    justify-content: space-evenly;
+    font-size: 15pt;
+    
+}
+
+.detalhes{
+    height: 25%;
+    display: flex;
+    border: 1px black solid;
+    padding-right: 0;
+}
+.dados_banco{
+    display: flex;
+    padding-left: 15px;
+    border: 1px black solid;
+    width: 100%;
+    align-items: center;
+}
+.label{
+    width: 10rem;
+    display: flex;
+    align-items: center;
+}
