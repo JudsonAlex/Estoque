@@ -2,11 +2,13 @@ import axios from "axios"
 import { useState } from "react"
 import { Produto } from "../../components/produtos/Produto.js"
 import './pesquisa.css'
+import { toast } from "react-toastify"
 
 export function Pesquisa(){
     const[codigo, setCodigo] = useState('')
     const[descricao, setDescricao] = useState('')
     const[ produtos, setProdutos] = useState([])
+    
 
     var dados = {
         cod: codigo,
@@ -14,7 +16,7 @@ export function Pesquisa(){
     }
 
     async function consultar (){
-        await axios.post('http://localhost:3333/listar', dados).then(e => {setProdutos(e.data); console.log(e.data)}).catch(err => {console.log(err)})   
+        await axios.post('http://localhost:3333/listar', dados).then(e => {setProdutos(e.data)}).catch(err => {toast.error(`Erroao conectar ao banco ${err.message}`)})   
     }
     
     return(

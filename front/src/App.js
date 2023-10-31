@@ -1,16 +1,15 @@
 
 import Rotas from "./Rotas"
-import "./app.css";
-import { Toaster } from "react-hot-toast";
-
-
+import "./App.css";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const App =() => {
 
   return (
     <div className="App">
       <Rotas />
-      <Toaster />
+      <ToastContainer />
     </div>
   );
 }

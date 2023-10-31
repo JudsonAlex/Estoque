@@ -1,7 +1,7 @@
-import database from '../configDB.js';
-import {Produto} from '../models/produto.js'
+const database = require('../configDB.js');
+const Produto = require('../models/produto.js')
 
-export async function criarDB() {
+async function criarDB() {
     try {
         const resultado = await database.sync();
         return resultado
@@ -10,6 +10,8 @@ export async function criarDB() {
         console.log('Erro ao criar\n',error);
     }
 }
+
+module.exports = criarDB
 
 
 

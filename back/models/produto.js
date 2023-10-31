@@ -1,8 +1,8 @@
-import Sequelize from 'sequelize'
+const Sequelize = require('sequelize')
 //const Sequelize = require('sequelize')
-import database from '../configDB.js'
+const database = require('../configDB.js')
 
-export const Produto =  database.define('produto',{
+const Produto =  database.define('produto',{
     cod: {
         type: Sequelize.INTEGER,
         autoincrement: false,
@@ -29,4 +29,4 @@ export const Produto =  database.define('produto',{
 
 })
 
-// module.exports = Produto
+module.exports = Produto

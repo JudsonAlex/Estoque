@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 import "./cadastro.css"
 import axios from 'axios'
+import { toast } from "react-toastify"
 const XLSX = require("xlsx")
 
 
@@ -35,8 +36,10 @@ export function Cadastro(){
 
             const planilha = XLSX.read(arrayBuffer, { type: 'array' });
             const sheets = planilha.SheetNames;
+            console.log(sheets)
             const sheet = sheets[0];
             const dados = XLSX.utils.sheet_to_json(planilha.Sheets[sheet]);
+            console.log(dados)
             cadastrar(dados)
             }
 
@@ -48,9 +51,36 @@ export function Cadastro(){
         
     }
 
-    function cadastrar(lista){
+    async function cadastrar(lista){
+        //========= método 1 ===============
+        const id = toast.loading("Salvando...",{
+            
+            draggable: true
+        })
+
         axios.post('http://localhost:3333/cadastrar',lista
-        ).then(console.log("ai sim")).catch(e => console.log('Erro ao salvar', e))
+        ).then(e =>{ 
+            toast.update(id,{render: "Salvo com Sucesso!", autoClose: true, type: "success", isLoading: false, closeOnClick: true}); console.log(e)}
+        ).catch(e => {toast.update(id,{render: `Falha ao salvar ${e.response.data}`,autoClose: true,  type: "error", isLoading: false, closeOnClick: true});console.log(e)})
+
+        // ============ Método 2 ===============
+        // await axios.post('http://localhost:3333/cadastrar',lista).then(e =>{
+        //     toast.success("Salvo com sucesso!")
+        //     console.log(e)}
+        // ).catch(e =>
+        //    { toast.error("Erro ao salvar!!")
+        //     console.log(e)}
+        // )
+
+        // =====  Método 3 =====
+        // toast.promise(
+        //     axios.post('http://localhost:3333/cadastrar',lista).then(e => console.log("uhul")).catch(e => console.log("opss")),
+        //     {
+        //         pending: 'Salvando',
+        //         success: 'Salvo com sucesso',
+        //         error: `Erro ao salvar`
+        //       }
+        // )
     }
 
     function cancelar(){

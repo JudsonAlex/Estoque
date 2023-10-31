@@ -1,6 +1,12 @@
 
 .statistcs{
     display: flex;
+    justify-content: space-between;
+}
+
+.stats{
+    width: 30%;
+    
 }
 
 #cadastrados{
@@ -19,5 +25,5 @@ main{
     width: 100%;
     justify-content: space-evenly;
     align-items: center;
-    background-color: #262c4d;
+    background-color: #f2f2f2;
 }

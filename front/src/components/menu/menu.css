@@ -1,9 +1,11 @@
 .nav{
     display: flex;
     flex-direction: column;
-    background-color: #211523;
+    background-color: #333333;
     height: 100%;
     width: 250px;
+    margin-right: 6px;
+    box-shadow:  1px 0px 5px black;
     
 }
 a svg{

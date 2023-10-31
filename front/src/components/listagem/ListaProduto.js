@@ -1,12 +1,25 @@
+import { toast } from 'react-toastify'
 import './lista.css'
 import axios from 'axios'
+import { useEffect, useRef } from 'react'
 
 
 export function ListaProdutos({ dados, remove, limpa}) {
+    const divRef = useRef(null)
 
-    async function entrada(item){
+    useEffect(() => {
+        divRef.current.scrollIntoView({ behavior: "smooth" });
+    }, [dados])
+
+    async function entrada(){
         console.log(dados)
-        await axios.put("http://localhost:3333/entrada", dados).then(e => console.log("Sucesso =>",e.data)).catch(e => console.log("Erro"))
+        await axios.put("http://localhost:3333/entrada", dados).then(e => toast.success("Salvo com sucesso!")).catch(e => toast.error(`Erro ao dar entrada ${e.message}`))
+        limpa([])
+    }
+
+    async function saida(){
+        console.log(dados)
+        await axios.put("http://localhost:3333/saida", dados).then(e => toast.success("Salvo com sucesso!")).catch(e => toast.error(`Erro ao dar saida ${e.message}`))
         limpa([])
     }
 
@@ -17,7 +30,7 @@ export function ListaProdutos({ dados, remove, limpa}) {
                     <thead>
                         <tr>
                             <th>cod.</th>
-                            <th>descrição</th>
+                            <th className='descricao'>descrição</th>
                             <th>quantidade</th>
                             <th></th>
                         </tr>
@@ -32,12 +45,13 @@ export function ListaProdutos({ dados, remove, limpa}) {
 
                             </tr>
                         )}
+                        <div ref={divRef}></div>
                     </tbody>
                 </table>
             </div>
             <section id='btn'>
                 <button id='entrada' onClick={entrada}>Entrada</button>
-                <button id='saida'>Saída</button>
+                <button id='saida' onClick={saida}>Saída</button>
             </section>
         </div>
     )

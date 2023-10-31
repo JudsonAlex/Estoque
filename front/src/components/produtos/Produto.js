@@ -1,9 +1,11 @@
+import { useState } from 'react';
+import { ModalEdit } from '../modal/ModalEdit';
 import './produto.css'
 
 export function Produto(props){
     const itens = props.itens;
-
-  
+    const[ isOpen, setIsOpen] = useState(false)
+    const [itemEdit, setItemEdit] = useState({})
 
     function dataFormat(datastring){
         var data = new Date(datastring)
@@ -13,35 +15,38 @@ export function Produto(props){
 
     const lista = itens.map(item =>
         <tr key={item.cod} className="prod">
-            <td>{item.cod}</td>
-            <td>{item.desc}</td>
-            <td>{item.local}</td>
-            <td>{item.fab}</td>
-            <td>{item.qnt}</td>
-            <td>{dataFormat(item.createdAt)}</td>
-            <td>{dataFormat(item.updatedAt)}</td>
+            <td className='numbers'>{item.cod}</td>
+            <td className='desc'>{item.desc}</td>
+            <td className='numbers'>{item.qnt}</td>
+            <td className='local'>{item.fab}</td>
+            <td className='local'>{item.local}</td>
+            <td className='med'>{<button onClick={() => {
+                setItemEdit(i => i=item) 
+                setIsOpen(!isOpen)
+                // console.log(itemEdit)
+            } }>Editar</button>}</td>
         </tr>
     )
 
-    
     return (
         <table>
         <thead>
             <tr>
-                <th>codigo</th>
-                <th>Descrição</th>
-                <th>Localização</th>
-                <th>Fabricante</th>
-                <th>quantidade</th>
-                <th>Criado</th>
-                <th>Editado</th>
+                <th className='numbers'>Cod</th>
+                <th className='desc'>Descrição</th>
+                <th className='numbers'>Quant</th>
+                <th className='local'>Fabricante</th>
+                <th className='local'>Localização</th>
+                <th className='med'></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody className='lista'>
             
             {lista}
             
         </tbody>
+
+        <ModalEdit dados={itemEdit} isOpen={isOpen} setIsOpen={setIsOpen}/>
 
     </table>
     );

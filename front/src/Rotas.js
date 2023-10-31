@@ -18,6 +18,7 @@ function Rotas(){
                 <Route path="/cadastro" element={<Cadastro/>}/>
                 <Route path="/pesquisa" element={<Pesquisa/>}/>
                 <Route path="/movimentacoes" element={<Movimentacoes/>}/>
+                <Route path="/editar" element={<Cadastro/>}/>
                 
             </Routes>
         </div>

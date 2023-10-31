@@ -1,26 +1,46 @@
-import express, { json } from 'express'
-import { criarDB } from './controllers/controler-produto.js'
-import { Produto } from './models/produto.js'
-import cors from 'cors'
-import { Op } from 'sequelize'
+const express = require('express')
+const criarDB  = require('./controllers/controler-produto.js')
+const Produto = require('./models/produto.js')
+const cors =require('cors')
+const {Op}  = require('sequelize')
+var bodyParser = require('body-parser')
+
+const path = require('path')
+// const  fileURLToPath = require('url');
+
+// const __filename = fileURLToPath(import.meta.url);
+
+// const __dirname = path.dirname(__filename);
 
 const app = express()
 
-app.use(json())
-app.use(cors())
+app.use(bodyParser.json({limit: "100mb"}))
+app.use(express.json())
+app.use(cors({}))
+app.use(express.static(__dirname + '/public'))
 
-app.get('/', function(req, res){
+app.get('/home', async function(req, res){
     const result = criarDB()
-    result.then((dado)=>{
-        //console.log(dado.options)
-        res.send(dado.status)
+    result.then(async ()=>{
+        // console.log(dado)
+        const countProducts = await Produto.count()
+        const produtosZerados = await Produto.count({
+            where: {
+                qnt: 0
+            }
+        })
+        console.log("esses sao os produtos",countProducts)
+        console.log("esses sao os produtos zerados",produtosZerados)
+        res.send({countProducts, produtosZerados})
     }).catch(err => {
         return {err}
     })
+
 })
 
+
 app.post('/cadastrar',async (req, res)=>{
-    // const {cod, desc, local, fab, qnt} = req.body
+    
     const lista = req.body
     try{
         for (var item of lista){
@@ -30,13 +50,13 @@ app.post('/cadastrar',async (req, res)=>{
                 local: item.local,
                 fab: item.fab,
                 qnt: item.qnt
-            
             })
         }
 
-        res.send("sucesso")
+        res.status(200).send("sucesso")
     } catch(error){
-        res.send(error)
+        console.log("\n\nEsse é o erro\n\n", error.name)
+        res.status(422).send(error.name)
     }
 })
 
@@ -80,12 +100,24 @@ app.put('/entrada',async (req, res) => {
 })
 
 app.put('/saida',async (req, res) => {
-    const {cod, qnt} = req.body
-    const produto = await Produto.findByPk(cod)
-    produto.qnt -= qnt
-    produto.save()
-    res.send(produto)
+    var mudancas = []
+    for(var i in req.body){
+        const {cod, qnt} = req.body[i]
+        const produto = await Produto.findByPk(cod)
+        produto.qnt -= parseInt(qnt)
+        await produto.save()
+        mudancas.push(produto)
+    }
+    res.send(mudancas)
 })
 
+app.put('/editar', async(req, res) =>{
+    const dados = req.body
+    const produto = await Produto.findByPk(dados.cod)
+    produto.update(dados)
+    res.send(produto)
+})
+    
 app.listen(3333, console.log('Rodando em http://localhost:3333'))
 
+module.exports = app

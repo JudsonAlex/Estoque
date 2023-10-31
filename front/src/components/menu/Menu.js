@@ -10,7 +10,7 @@ function MenuLateral(){
         <nav className="nav">
             <Link className="links" to="/"><MdSpaceDashboard size={24} />DASHBOARD</Link>
             <Link className="links" to="/cadastro"><ImPaste size={24}/>CADASTRO</Link>
-            <Link className="links" to="/movimentacoes"><ImEnter size={24}/>Movimentações</Link>
+            <Link className="links" to="/movimentacoes"><ImEnter size={24}/>MOVIMENTAÇÕES</Link>
             <Link className="links" to="/pesquisa"><ImSearch size={24}/>PESQUISAR</Link>
         </nav>
     )

@@ -1,0 +1,41 @@
+@startuml estoque
+    class produto{
+        id: int
+        descrição: str
+        fabricante: str
+        quantidade: str
+        localização: str
+        min_estoque: int
+    }
+
+    class codigos{
+        id: int
+        fk_id_Produto: int
+        codigo: str
+    }
+
+
+    class estoquista{
+        id:  integer
+        nome: str
+        senha: str
+        entrada()
+        saida()
+    }
+
+    class movimentacao{
+        data: Date
+        id_produto: int
+        quantidade: int
+        id_estoquista: int
+        tipo_operaçao: str 
+    }
+
+    produto "1" - "1..*" estoquista
+    (produto, estoquista) .. movimentacao
+
+    codigos::fk_id_Produto *- produto::id 
+
+
+    
+@enduml

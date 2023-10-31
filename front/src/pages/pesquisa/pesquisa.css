@@ -4,3 +4,11 @@
     align-items: center;
     width: 100%;
 }
+button:hover{
+    background-color: #999;
+    cursor: pointer;
+}
+td{
+    font-size: 12pt;
+    font-weight: 700;
+}

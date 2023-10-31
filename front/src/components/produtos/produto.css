@@ -4,9 +4,21 @@ thead{
     background-color: #211523;
     color: #eff3ec;
 }
+.lista{
+    display: block;
+    height: 80vh;
+    overflow-y: auto;
+    width: 100%;
+    /* table-layout: fixed; */
+}
 table{
     
     border-collapse: collapse;
+}
+tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
 
 .prod:nth-child(even){
@@ -20,9 +32,31 @@ table{
 }
 
 td, th {
-    padding: 5px;
+    word-break: break-word;
 }
 
 tr > td:last-child{
-    padding: 0 20px;
+    padding: 0 0px;
+}#container-list{
+    width: 100%;
+    overflow: auto;
+}
+
+.numbers{
+    width: 5%;
+}
+
+th.med{
+    width: 8%;
+    padding-right: 15px;
+}
+.med{
+    width: 8%;
+}
+.local{
+    width: 16%;
+}
+
+.desc{
+    width: 50%;
 }
