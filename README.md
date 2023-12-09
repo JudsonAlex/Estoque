@@ -1,2 +1,3 @@
 # Estoque
-## Uma simples idéia de gerenciador de estoque
+Uma solução simples de controle de estoque
+
